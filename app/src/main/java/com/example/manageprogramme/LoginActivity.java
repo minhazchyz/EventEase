@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -23,104 +24,95 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     EditText loginUsername, loginPassword;
     Button loginButton;
     TextView signupRedirectText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
+        // Edge-to-edge padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Initialize views
         loginUsername = findViewById(R.id.login_username);
         loginPassword = findViewById(R.id.login_password);
-        signupRedirectText = findViewById(R.id.signupRedirecttext);
-        loginButton = findViewById(R.id.login_Button);
+        loginButton = findViewById(R.id.login_button); // make sure this matches your XML Button ID
+        signupRedirectText = findViewById(R.id.signupRedirectText);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!validateUsername() | !validatePassword()) {
-                } else {
-                    checkUser();
-                }
-
+        // Login button click
+        loginButton.setOnClickListener(v -> {
+            if (!validateUsername() | !validatePassword()) {
+                return;
             }
-        });
-        signupRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
+            checkUser();
         });
 
-
-
-
+        // Redirect to signup
+        signupRedirectText.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
+        });
     }
-   public boolean validateUsername(){
-        String val=loginUsername.getText().toString();
-       if (val.isEmpty()) {
 
-           loginUsername.setError("username can't be empty");
-           return  false;
-
-       }else {
-           loginUsername.setError(null);
-           return true;
-       }
-   }
-    public boolean validatePassword(){
-        String val=loginPassword.getText().toString();
+    // Validate username input
+    private boolean validateUsername() {
+        String val = loginUsername.getText().toString().trim();
         if (val.isEmpty()) {
+            loginUsername.setError("Username can't be empty");
+            return false;
+        } else {
+            loginUsername.setError(null);
+            return true;
+        }
+    }
 
-            loginPassword.setError("password can't be empty");
-            return  false;
-
-        }else {
+    // Validate password input
+    private boolean validatePassword() {
+        String val = loginPassword.getText().toString().trim();
+        if (val.isEmpty()) {
+            loginPassword.setError("Password can't be empty");
+            return false;
+        } else {
             loginPassword.setError(null);
             return true;
         }
     }
 
-    public  void checkUser(){
-
-        String userUsername =loginUsername.getText().toString().trim();
-        String userPassword =loginPassword.getText().toString().trim();
+    // Check user credentials in Firebase
+    private void checkUser() {
+        String userUsername = loginUsername.getText().toString().trim();
+        String userPassword = loginPassword.getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase =reference.orderByChild("username").equalTo(userUsername);
-
-
+        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     loginUsername.setError(null);
+
                     String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
 
-                    if (passwordFromDB.equals(userPassword)) {
-                        loginUsername.setError(null);
-
+                    if (passwordFromDB != null && passwordFromDB.equals(userPassword)) {
+                        // Login successful
+                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
                         startActivity(intent);
+                        finish(); // Prevents going back to login page
                     } else {
                         loginPassword.setError("Invalid Credentials");
                         loginPassword.requestFocus();
                     }
-                }
-                else {
+                } else {
                     loginUsername.setError("User does not exist");
                     loginUsername.requestFocus();
                 }
@@ -128,12 +120,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(LoginActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
-
 }
