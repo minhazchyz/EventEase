@@ -2,7 +2,7 @@ package com.example.manageprogramme;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,17 +49,22 @@ public class LoginActivity extends AppCompatActivity {
 
         // Login button click
         loginButton.setOnClickListener(v -> {
-            if (!validateUsername() | !validatePassword()) {
-                return;
+            if (!validateUsername() || !validatePassword()) {
+                return;  // Stop if username or password invalid
+            } else {
+                checkUser(); // Proceed if both are valid
             }
-            checkUser();
         });
+
+
+
 
         // Redirect to signup
         signupRedirectText.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+           Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
+
     }
 
     // Validate username input
@@ -105,9 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (passwordFromDB != null && passwordFromDB.equals(userPassword)) {
                         // Login successful
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent  intent= new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish(); // Prevents going back to login page
+                        finish();// Prevents going back to login page...
                     } else {
                         loginPassword.setError("Invalid Credentials");
                         loginPassword.requestFocus();
