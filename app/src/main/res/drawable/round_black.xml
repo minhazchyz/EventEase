@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Fill the rectangle with light purple -->
+    <solid android:color="#D8BFD8"/> <!-- Light purple inside -->
+
+    <!-- Optional: border same as fill -->
+    <stroke
+        android:width="2dp"
+        android:color="#D8BFD8"/> <!-- Same light purple -->
+
+    <!-- Rounded corners -->
+    <corners android:radius="12dp"/>
+</shape>
