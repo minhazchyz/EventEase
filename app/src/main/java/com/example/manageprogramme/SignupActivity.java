@@ -71,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
             reference.child(username).setValue(helperClass)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(SignupActivity.this,LoginActivity.class);
                         startActivity(intent);
 
                     })

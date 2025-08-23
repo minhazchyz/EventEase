@@ -13,9 +13,6 @@
         android:theme="@style/Theme.ManageProgramme"
         tools:targetApi="31">
         <activity
-            android:name=".OTPVerification"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false">
             <intent-filter>
@@ -24,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Card"
+            android:exported="false" />
+        <activity
+            android:name=".OTPVerification"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
