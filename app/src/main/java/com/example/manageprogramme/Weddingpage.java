@@ -1,41 +1,27 @@
 package com.example.manageprogramme;
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class Weddingpage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
 
-        // Make sure "main" is defined in your XML root layout
+        // Load the correct layout
+        setContentView(R.layout.activity_weddingpage);
+
+        // ✅ make sure activity_weddingpage.xml has android:id="@+id/main"
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        CardView weddingCard = findViewById(R.id.card_wedding);
-
-        weddingCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Weddingpage.class);
-            startActivity(intent);
-        });
-
-
-
-
-
-
-
     }
 }
