@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Weddingpage">
+    tools:context=".Weddingpage"
+    >
     <!--mi-->
     <!-- Scrollable Content -->
     <ScrollView
@@ -196,5 +197,7 @@
         android:background="@color/purple"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
-        app:menu="@drawable/bottom_nav_menu" />
+        app:menu="@drawable/bottom_nav_menu"
+
+        />
 </RelativeLayout>

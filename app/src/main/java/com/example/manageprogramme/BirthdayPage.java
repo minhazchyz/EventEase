@@ -1,52 +1,45 @@
 package com.example.manageprogramme;
 
+import static com.example.manageprogramme.R.id.nav_home;
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class BirthdayPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-
-        // Make sure "main" is defined in your XML root layout
+        setContentView(R.layout.activity_birthday_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        CardView weddingCard = findViewById(R.id.card_wedding);
-        CardView birthdayCard = findViewById(R.id.birthday);
+        setContentView(R.layout.activity_birthday_page);
 
-        weddingCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Weddingpage.class);
-            startActivity(intent);
-        });
-
-
+//birth page to home page botton workable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == nav_home) {
+                Intent intent = new Intent(BirthdayPage.this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            }
 
-
-
-        birthdayCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, BirthdayPage.class);
-            startActivity(intent);
+            return false;
         });
-
-
-
 
 
 
