@@ -20,35 +20,42 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Make sure "main" is defined in your XML root layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // CardView references
         CardView weddingCard = findViewById(R.id.card_wedding);
         CardView birthdayCard = findViewById(R.id.birthday);
+        CardView bridalShawerCard = findViewById(R.id.card_bridal);
 
-        weddingCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Weddingpage.class);
-            startActivity(intent);
-        });
+        // Card click events
+        weddingCard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, Weddingpage.class)));
+        birthdayCard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, BirthdayPage.class)));
+        bridalShawerCard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, BridalShawerPage.class)));
 
-
+        // Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
 
+            if (id == R.id.nav_home) {
+                // Already in MainActivity, do nothing
+                return true;
+            } else if (id == R.id.nav_profile) {
+                // Open profile activity (if exists)
+                startActivity(new Intent(MainActivity.this, Cart.class));
+                return true;
+            } else if (id == R.id.nav_cart) {
+                // Open Cart activity
+                startActivity(new Intent(MainActivity.this, Cart.class));
+                return true;
+            }
 
-
-        birthdayCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, BirthdayPage.class);
-            startActivity(intent);
+            return false;
         });
-
-
-
-
-
-
     }
 }

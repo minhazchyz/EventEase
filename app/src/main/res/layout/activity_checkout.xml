@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".Checkout"
+    android:id="@+id/main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Page Title -->
+        <TextView
+            android:id="@+id/checkout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Checkout"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:padding="12dp" />
+
+        <!-- Personal Info Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Full Name"
+                    android:inputType="textPersonName"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:padding="12dp"
+                    android:background="@drawable/lavender_border" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Address"
+                    android:inputType="textEmailAddress"
+                    android:drawableStart="@drawable/email_svgrepo_com"
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/lavender_border" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/lavender_border"
+                    android:drawableStart="@drawable/phone_svgrepo_com"
+                    android:hint="Phone Number"
+                    android:inputType="phone"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Event Location / Address"
+                    android:inputType="textPostalAddress"
+                    android:drawableStart="@drawable/location_pin_alt_1_svgrepo_com"
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/lavender_border" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Order Summary -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/order_summary_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Summary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wedding Package, Birthday Event"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total: $3000"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Payment Method -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/payment_method_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Payment Method"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rb_cod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cash on Delivery"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/rb_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Credit/Debit Card"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/rb_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mobile Payment"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Confirm Order Button -->
+        <Button
+            android:id="@+id/btn_confirm_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Order"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/purple"
+            android:textColor="@color/white"
+            android:layout_marginBottom="40dp" />
+    </LinearLayout>
+</ScrollView>

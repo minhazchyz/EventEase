@@ -1,47 +1,44 @@
 package com.example.manageprogramme;
 
-import static com.example.manageprogramme.R.id.nav_home;
-
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BirthdayPage extends AppCompatActivity {
+
+    private Button btnKids, btnTeen, btnAdult, btnLuxury, btnFamily, btnTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_birthday_page);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        setContentView(R.layout.activity_birthday_page);
+        setContentView(R.layout.activity_birthday_page); // XML file name check korben
 
-//birth page to home page botton workable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        // Button initialize
+        btnKids = findViewById(R.id.btn_kids);
+        btnTeen = findViewById(R.id.btn_teen);
+        btnAdult = findViewById(R.id.btn_adult);
+        btnLuxury = findViewById(R.id.btn_luxury);
+        btnFamily = findViewById(R.id.btn_family);
+        btnTheme = findViewById(R.id.btn_theme);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == nav_home) {
-                Intent intent = new Intent(BirthdayPage.this, MainActivity.class);
-                startActivity(intent);
-                return true;
+        // Click listener add
+        setButtonListener(btnKids);
+        setButtonListener(btnTeen);
+        setButtonListener(btnAdult);
+        setButtonListener(btnLuxury);
+        setButtonListener(btnFamily);
+        setButtonListener(btnTheme);
+    }
+
+    private void setButtonListener(final Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                button.setText("View Book"); // Text change
+                // Ekhane chaile aro kaj korte paren, like intent diye new activity open kora
             }
-
-            return false;
         });
-
-
-
     }
 }
