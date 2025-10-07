@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.nav_profile) {
                 // Open profile activity (if exists)
-                startActivity(new Intent(MainActivity.this, Cart.class));
+                startActivity(new Intent(MainActivity.this, UserProfile.class));
                 return true;
             } else if (id == R.id.nav_cart) {
                 // Open Cart activity
