@@ -13,7 +13,7 @@
         android:id="@+id/empty_cart_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_cart_message"
+        android:text="Your cart is empty"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -31,67 +31,13 @@
         android:layout_below="@id/empty_cart_message"
         android:fillViewport="true">
 
+        <!--  Added Container to hold all cart items dynamically -->
         <LinearLayout
             android:id="@+id/cart_items_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Example Cart Item -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/weddding"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="10dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Classic Wedding Package"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Price: $1500"
-                            android:textSize="14sp"
-                            android:textColor="@color/purple" />
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/btn_remove_item"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@android:drawable/ic_menu_delete"
-                        android:contentDescription="Remove Item" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
+            android:padding="16dp" />
     </ScrollView>
 
     <!-- Checkout Bar -->
@@ -110,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Total: $2500"
+            android:text="Total: ৳0"
             android:textSize="18sp"
             android:textColor="@color/white" />
 
@@ -132,6 +78,5 @@
         android:background="@color/purple"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
-        app:menu="@menu/navigation" /> <!-- FIXED: should be in res/menu, not drawable -->
-
+        app:menu="@menu/navigation" />
 </RelativeLayout>

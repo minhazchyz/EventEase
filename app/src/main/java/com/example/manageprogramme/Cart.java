@@ -26,6 +26,7 @@ public class Cart extends AppCompatActivity {
     private TextView tvTotalPrice, emptyCartMessage;
     private int totalPrice = 0;
     private SharedPreferences prefs;
+    private StringBuilder allItems = new StringBuilder(); // 🔹 For storing all booked item names
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,10 @@ public class Cart extends AppCompatActivity {
         emptyCartMessage = findViewById(R.id.empty_cart_message);
         prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
 
-        // Load items from SharedPreferences
+        // 🔹 Load items
         loadCartItems();
 
-        // Bottom Navigation
+        // 🔹 Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -61,18 +62,22 @@ public class Cart extends AppCompatActivity {
             } else if (id == R.id.nav_cart) {
                 return true;
             }
-
             return false;
         });
 
+        // 🔹 Checkout Button Click
         Button btnCheckout = findViewById(R.id.btn_checkout);
         btnCheckout.setOnClickListener(v -> {
-            Toast.makeText(Cart.this, "Checkout Successful! 🎉", Toast.LENGTH_SHORT).show();
-            prefs.edit().remove("cart_items").apply(); // Clear after checkout
-            cartContainer.removeAllViews();
-            totalPrice = 0;
-            updateTotalPrice();
-            emptyCartMessage.setVisibility(View.VISIBLE);
+            if (cartContainer.getChildCount() == 0) {
+                Toast.makeText(Cart.this, "Your cart is empty!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 🔹 Send data to Checkout activity
+            Intent intent = new Intent(Cart.this, Checkout.class);
+            intent.putExtra("items", allItems.toString());
+            intent.putExtra("total_price", "৳" + totalPrice);
+            startActivity(intent);
         });
     }
 
@@ -149,6 +154,14 @@ public class Cart extends AppCompatActivity {
             removeItemFromPrefs(packageName, price);
             if (cartContainer.getChildCount() == 0) {
                 emptyCartMessage.setVisibility(View.VISIBLE);
+                allItems.setLength(0); // Clear list
+            } else {
+                // Remove from item list too
+                String itemStr = packageName + ", ";
+                int index = allItems.indexOf(itemStr);
+                if (index != -1) {
+                    allItems.delete(index, index + itemStr.length());
+                }
             }
         });
 
@@ -157,6 +170,10 @@ public class Cart extends AppCompatActivity {
 
         totalPrice += price;
         updateTotalPrice();
+
+        // Add to list for checkout
+        if (allItems.length() > 0) allItems.append(", ");
+        allItems.append(packageName);
     }
 
     private void removeItemFromPrefs(String name, int price) {
