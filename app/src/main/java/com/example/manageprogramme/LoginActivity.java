@@ -2,24 +2,17 @@ package com.example.manageprogramme;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,93 +21,53 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     TextView signupRedirectText;
 
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // Edge-to-edge padding
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // Initialize views
         loginUsername = findViewById(R.id.login_username);
         loginPassword = findViewById(R.id.login_password);
-        loginButton = findViewById(R.id.login_button); // make sure this matches your XML Button ID
+        loginButton = findViewById(R.id.login_button);
         signupRedirectText = findViewById(R.id.signupRedirectText);
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
         // Login button click
-        loginButton.setOnClickListener(v -> {
-            if (!validateUsername() || !validatePassword()) {
-                return;  // Stop if username or password invalid
-            } else {
-                checkUser(); // Proceed if both are valid
-            }
-        });
-
-
-
+        loginButton.setOnClickListener(v -> loginUser());
 
         // Redirect to signup
-        signupRedirectText.setOnClickListener(v -> {
-           Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-            startActivity(intent);
-        });
-
+        signupRedirectText.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
     }
 
-    // Validate username input
-    private boolean validateUsername() {
-        String val = loginUsername.getText().toString().trim();
-        if (val.isEmpty()) {
+    private void loginUser() {
+        String username = loginUsername.getText().toString().trim();
+        String password = loginPassword.getText().toString().trim();
+
+        if (username.isEmpty()) {
             loginUsername.setError("Username can't be empty");
-            return false;
-        } else {
-            loginUsername.setError(null);
-            return true;
+            return;
         }
-    }
-
-    // Validate password input
-    private boolean validatePassword() {
-        String val = loginPassword.getText().toString().trim();
-        if (val.isEmpty()) {
+        if (password.isEmpty()) {
             loginPassword.setError("Password can't be empty");
-            return false;
-        } else {
-            loginPassword.setError(null);
-            return true;
+            return;
         }
-    }
 
-    // Check user credentials in Firebase
-    private void checkUser() {
-        String userUsername = loginUsername.getText().toString().trim();
-        String userPassword = loginPassword.getText().toString().trim();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    loginUsername.setError(null);
-
-                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
-
-                    if (passwordFromDB != null && passwordFromDB.equals(userPassword)) {
+                    String passwordFromDB = snapshot.child("password").getValue(String.class);
+                    if (passwordFromDB != null && passwordFromDB.equals(password)) {
                         // Login successful
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent  intent= new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();// Prevents going back to login page...
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish(); // Prevent going back to login
                     } else {
-                        loginPassword.setError("Invalid Credentials");
+                        loginPassword.setError("Invalid password");
                         loginPassword.requestFocus();
                     }
                 } else {
@@ -124,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(DatabaseError error) {
                 Toast.makeText(LoginActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
