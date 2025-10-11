@@ -1,6 +1,7 @@
 package com.example.manageprogramme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,24 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ✅ Check if user is already logged in
+        SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String savedUsername = prefs.getString("username", null);
+        String savedName = prefs.getString("name", null);
+        String savedEmail = prefs.getString("email", null);
+
+        if (savedUsername != null) {
+            // User is already logged in → go to MainActivity
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("username", savedUsername);
+            intent.putExtra("name", savedName);
+            intent.putExtra("email", savedEmail);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         loginUsername = findViewById(R.id.login_username);
@@ -35,10 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
-        // Login button click
         loginButton.setOnClickListener(v -> loginUser());
-
-        // Redirect to signup
         signupRedirectText.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
     }
@@ -61,11 +77,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String passwordFromDB = snapshot.child("password").getValue(String.class);
+
                     if (passwordFromDB != null && passwordFromDB.equals(password)) {
-                        // Login successful
-                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish(); // Prevent going back to login
+                        String nameFromDB = snapshot.child("name").getValue(String.class);
+                        String emailFromDB = snapshot.child("email").getValue(String.class);
+
+                        Toast.makeText(LoginActivity.this, "✅ Login successful!", Toast.LENGTH_SHORT).show();
+
+                        // ✅ Save session
+                        SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("username", username);
+                        editor.putString("name", nameFromDB);
+                        editor.putString("email", emailFromDB);
+                        editor.apply();
+
+                        // ✅ Go to MainActivity
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("name", nameFromDB);
+                        intent.putExtra("username", username);
+                        intent.putExtra("email", emailFromDB);
+                        startActivity(intent);
+                        finish();
                     } else {
                         loginPassword.setError("Invalid password");
                         loginPassword.requestFocus();

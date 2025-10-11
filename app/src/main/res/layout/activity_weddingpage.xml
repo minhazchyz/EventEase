@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Weddingpage"
-    >
-    <!--mi-->
+    tools:context=".Weddingpage">
+
     <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +32,7 @@
                 android:layout_gravity="center"
                 android:paddingBottom="20dp"/>
 
-            <!-- Wedding Package 1 -->
+            <!-- Package 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,22 +55,30 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:text="Royal Wedding Package"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingTop="10dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Price: $2000"
                         android:textColor="@color/purple"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btn_royal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Now"
+                        android:backgroundTint="@color/purple"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Wedding Package 2 -->
+            <!-- Package 2 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,21 +102,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Classic Wedding Package"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:paddingTop="10dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Price: $1500"
-                        android:textSize="16sp"
-                        android:textColor="@color/purple"/>
+                        android:textColor="@color/purple"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btn_classic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Now"
+                        android:backgroundTint="@color/purple"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Wedding Package 3 -->
+            <!-- Package 3 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,21 +148,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Premium Wedding Package"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:paddingTop="10dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Price: $2500"
-                        android:textSize="16sp"
-                        android:textColor="@color/purple"/>
+                        android:textColor="@color/purple"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btn_premium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Now"
+                        android:backgroundTint="@color/purple"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Wedding Package 4 -->
+            <!-- Package 4 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,18 +193,26 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Premium Wedding Package"
+                        android:text="Luxury Wedding Package"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:paddingTop="10dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price: $2500"
-                        android:textSize="16sp"
-                        android:textColor="@color/purple"/>
+                        android:text="Price: $3000"
+                        android:textColor="@color/purple"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:id="@+id/btn_luxury"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Book Now"
+                        android:backgroundTint="@color/purple"
+                        android:textColor="@color/white"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -197,7 +228,5 @@
         android:background="@color/purple"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
-        app:menu="@drawable/bottom_nav_menu"
-
-        />
+        app:menu="@drawable/bottom_nav_menu" />
 </RelativeLayout>

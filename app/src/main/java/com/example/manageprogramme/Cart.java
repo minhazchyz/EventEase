@@ -26,7 +26,8 @@ public class Cart extends AppCompatActivity {
     private TextView tvTotalPrice, emptyCartMessage;
     private int totalPrice = 0;
     private SharedPreferences prefs;
-    private StringBuilder allItems = new StringBuilder(); // 🔹 For storing all booked item names
+    private StringBuilder allItems = new StringBuilder();
+    private String username; // 🔹 Current user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,16 @@ public class Cart extends AppCompatActivity {
             return insets;
         });
 
+        // 🔹 Receive username from Intent
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+
         cartContainer = findViewById(R.id.cart_items_container);
         tvTotalPrice = findViewById(R.id.tv_total_price);
         emptyCartMessage = findViewById(R.id.empty_cart_message);
-        prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
+
+        // 🔹 User-specific SharedPreferences
+        prefs = getSharedPreferences("Cart_" + username, MODE_PRIVATE);
 
         // 🔹 Load items
         loadCartItems();
@@ -54,10 +61,14 @@ public class Cart extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.nav_home) {
-                startActivity(new Intent(Cart.this, MainActivity.class));
+                Intent homeIntent = new Intent(Cart.this, MainActivity.class);
+                homeIntent.putExtra("username", username);
+                startActivity(homeIntent);
                 return true;
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(Cart.this, UserProfile.class));
+                Intent profileIntent = new Intent(Cart.this, UserProfile.class);
+                profileIntent.putExtra("username", username);
+                startActivity(profileIntent);
                 return true;
             } else if (id == R.id.nav_cart) {
                 return true;
@@ -73,11 +84,11 @@ public class Cart extends AppCompatActivity {
                 return;
             }
 
-            // 🔹 Send data to Checkout activity
-            Intent intent = new Intent(Cart.this, Checkout.class);
-            intent.putExtra("items", allItems.toString());
-            intent.putExtra("total_price", "৳" + totalPrice);
-            startActivity(intent);
+            Intent checkoutIntent = new Intent(Cart.this, Checkout.class);
+            checkoutIntent.putExtra("username", username);
+            checkoutIntent.putExtra("items", allItems.toString());
+            checkoutIntent.putExtra("total_price", "৳" + totalPrice);
+            startActivity(checkoutIntent);
         });
     }
 
@@ -154,9 +165,8 @@ public class Cart extends AppCompatActivity {
             removeItemFromPrefs(packageName, price);
             if (cartContainer.getChildCount() == 0) {
                 emptyCartMessage.setVisibility(View.VISIBLE);
-                allItems.setLength(0); // Clear list
+                allItems.setLength(0);
             } else {
-                // Remove from item list too
                 String itemStr = packageName + ", ";
                 int index = allItems.indexOf(itemStr);
                 if (index != -1) {
@@ -171,7 +181,6 @@ public class Cart extends AppCompatActivity {
         totalPrice += price;
         updateTotalPrice();
 
-        // Add to list for checkout
         if (allItems.length() > 0) allItems.append(", ");
         allItems.append(packageName);
     }

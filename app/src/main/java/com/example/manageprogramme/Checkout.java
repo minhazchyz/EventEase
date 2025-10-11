@@ -21,6 +21,7 @@ public class Checkout extends AppCompatActivity {
     private TextView tvItems, tvTotalPrice;
     private RadioGroup radioPayment;
     private Button btnConfirmOrder;
+    private String username; // 🔹 Added
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class Checkout extends AppCompatActivity {
 
         // Get data from Cart
         Intent intent = getIntent();
+        username = intent.getStringExtra("username"); // 🔹 receive username
         String items = intent.getStringExtra("items");
         String totalPrice = intent.getStringExtra("total_price");
 
@@ -62,8 +64,8 @@ public class Checkout extends AppCompatActivity {
             String address = etAddress.getText().toString().trim();
 
             int selectedPaymentId = radioPayment.getCheckedRadioButtonId();
-            Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show();
-            // Validation checks
+
+            // Validation
             if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
                 Toast.makeText(this, "Please fill all personal information!", Toast.LENGTH_SHORT).show();
                 return;
@@ -77,13 +79,10 @@ public class Checkout extends AppCompatActivity {
             RadioButton selectedPayment = findViewById(selectedPaymentId);
             String paymentMethod = selectedPayment.getText().toString();
 
-            //  Open ConfirmBooking page with data
-
-
-
             // Send data to ConfirmBooking
             Intent confirmIntent = new Intent(Checkout.this, ConfirmBooking.class);
 
+            confirmIntent.putExtra("username", username); // 🔹 send username
             confirmIntent.putExtra("name", name);
             confirmIntent.putExtra("phone", phone);
             confirmIntent.putExtra("address", address);

@@ -15,10 +15,23 @@ public class BirthdayPage extends AppCompatActivity {
 
     private Button btnKids, btnTeen, btnAdult, btnLuxury, btnFamily, btnTheme;
 
+    // ✅ User data
+    private String username;
+    private String name;
+    private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday_page);
+
+        // ✅ Receive user data from MainActivity
+        Intent intent = getIntent();
+        if (intent != null) {
+            username = intent.getStringExtra("username");
+            name = intent.getStringExtra("name");
+            email = intent.getStringExtra("email");
+        }
 
         // Buttons initialize
         btnKids = findViewById(R.id.btn_kids);
@@ -40,18 +53,24 @@ public class BirthdayPage extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            Intent navIntent;
 
             if (id == R.id.nav_home) {
-                startActivity(new Intent(BirthdayPage.this, MainActivity.class));
-                return true;
+                navIntent = new Intent(BirthdayPage.this, MainActivity.class);
             } else if (id == R.id.nav_profile) {
-                startActivity(new Intent(BirthdayPage.this, UserProfile.class));
-                return true;
+                navIntent = new Intent(BirthdayPage.this, UserProfile.class);
             } else if (id == R.id.nav_cart) {
-                startActivity(new Intent(BirthdayPage.this, Cart.class));
-                return true;
+                navIntent = new Intent(BirthdayPage.this, Cart.class);
+            } else {
+                return false;
             }
-            return false;
+
+            // ✅ Pass user data
+            navIntent.putExtra("username", username);
+            navIntent.putExtra("name", name);
+            navIntent.putExtra("email", email);
+            startActivity(navIntent);
+            return true;
         });
     }
 
@@ -61,7 +80,8 @@ public class BirthdayPage extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                SharedPreferences prefs = getSharedPreferences("MyCart", MODE_PRIVATE);
+                // 🔹 Use user-specific SharedPreferences
+                SharedPreferences prefs = getSharedPreferences("Cart_" + username, MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
                 if (!booked) {
@@ -79,6 +99,10 @@ public class BirthdayPage extends AppCompatActivity {
                 } else {
                     // Open Cart page
                     Intent intent = new Intent(BirthdayPage.this, Cart.class);
+                    // ✅ Pass user data
+                    intent.putExtra("username", username);
+                    intent.putExtra("name", name);
+                    intent.putExtra("email", email);
                     startActivity(intent);
                 }
             }

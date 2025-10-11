@@ -12,8 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,14 +28,12 @@ public class ConfirmBooking extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_confirm_booking);
 
-        // Edge-to-edge padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
-        // Initialize views
         tvName = findViewById(R.id.tvName);
         tvPhone = findViewById(R.id.tvPhone);
         tvAddress = findViewById(R.id.tvAddress);
@@ -46,7 +42,10 @@ public class ConfirmBooking extends AppCompatActivity {
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         btnHome = findViewById(R.id.btnHome);
 
-        // Receive data from Checkout
+        // ✅ Get username from Intent
+        String username = getIntent().getStringExtra("username");
+
+        // ✅ Get booking data
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String phone = intent.getStringExtra("phone");
@@ -55,7 +54,6 @@ public class ConfirmBooking extends AppCompatActivity {
         String items = intent.getStringExtra("items");
         String totalPrice = intent.getStringExtra("totalPrice");
 
-        // Set data to TextViews
         tvName.setText("Name: " + name);
         tvPhone.setText("Phone: " + phone);
         tvAddress.setText("Address: " + address);
@@ -63,43 +61,36 @@ public class ConfirmBooking extends AppCompatActivity {
         tvItems.setText("Items: " + items);
         tvTotalPrice.setText("Total: " + totalPrice);
 
-        // ✅ Save Booking info to Firebase
-        saveBookingToFirebase(name, phone, address, paymentMethod, items, totalPrice);
+        saveBookingToFirebase(username, name, phone, address, paymentMethod, items, totalPrice);
 
-        // Back to Home button click
         btnHome.setOnClickListener(v -> {
             Intent homeIntent = new Intent(ConfirmBooking.this, MainActivity.class);
+            homeIntent.putExtra("username", username); // keep username flow
             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(homeIntent);
             finish();
         });
     }
 
-    private void saveBookingToFirebase(String name, String phone, String address,
-                                       String paymentMethod, String items, String totalPrice) {
+    private void saveBookingToFirebase(String username, String name, String phone,
+                                       String address, String paymentMethod, String items, String totalPrice) {
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(this, "❌ User not logged in!", Toast.LENGTH_LONG).show();
+        if (username == null || username.isEmpty()) {
+            Toast.makeText(this, "❌ User information missing!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String uid = currentUser.getUid();
-
-        // Firebase database reference
         DatabaseReference ref = FirebaseDatabase.getInstance()
-                .getReference("Users")
-                .child(uid)
+                .getReference("users")
+                .child(username)
                 .child("Bookings");
 
-        // Unique booking ID
         String bookingId = ref.push().getKey();
         if (bookingId == null) {
             Toast.makeText(this, "❌ Failed to generate booking ID", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Booking data map
         HashMap<String, Object> bookingData = new HashMap<>();
         bookingData.put("name", name);
         bookingData.put("phone", phone);
@@ -109,7 +100,6 @@ public class ConfirmBooking extends AppCompatActivity {
         bookingData.put("totalPrice", totalPrice);
         bookingData.put("timestamp", System.currentTimeMillis());
 
-        // Upload to Firebase
         ref.child(bookingId).setValue(bookingData)
                 .addOnSuccessListener(unused ->
                         Toast.makeText(this, "✅ Booking saved successfully!", Toast.LENGTH_SHORT).show()

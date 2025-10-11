@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText signupName, signupUsername, signupPassword;
+    EditText signupName, signupUsername, signupEmail, signupPassword;
     TextView loginRedirectText;
     Button signupButton;
 
@@ -35,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
 
         signupName = findViewById(R.id.signup_name);
         signupUsername = findViewById(R.id.signup_username);
+        signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupButton = findViewById(R.id.Signup_button);
         loginRedirectText = findViewById(R.id.loginRedirectText);
@@ -49,10 +50,17 @@ public class SignupActivity extends AppCompatActivity {
     private void registerUser() {
         String name = signupName.getText().toString().trim();
         String username = signupUsername.getText().toString().trim();
+        String email = signupEmail.getText().toString().trim();
         String password = signupPassword.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) ||
+                TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "⚠ Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "⚠ Please enter a valid email", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -63,9 +71,10 @@ public class SignupActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     Toast.makeText(SignupActivity.this, "⚠ Username already taken!", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Save user to Realtime Database
                     Map<String, Object> user = new HashMap<>();
                     user.put("name", name);
+                    user.put("username", username);
+                    user.put("email", email);
                     user.put("password", password);
 
                     databaseReference.child(username).setValue(user)
@@ -74,7 +83,8 @@ public class SignupActivity extends AppCompatActivity {
                                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                                 finish();
                             })
-                            .addOnFailureListener(e -> Toast.makeText(SignupActivity.this, "❌ Signup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(SignupActivity.this, "❌ Signup failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }
 
