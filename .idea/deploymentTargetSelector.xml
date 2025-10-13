@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="EventEase">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-10-09T11:44:53.809084100Z">
+        <DropdownSelection timestamp="2025-10-13T17:52:00.070143600Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\MINHAJ\.android\avd\Pixel_6_API_30.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\MINHAJ\.android\avd\Pixel_9.avd" />
             </handle>
           </Target>
         </DropdownSelection>

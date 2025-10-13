@@ -55,6 +55,7 @@ public class UserProfile extends AppCompatActivity {
         etPhone.setEnabled(false);
         etAddress.setEnabled(false);
 
+        // ✅ Edit profile button
         btnEditProfile.setOnClickListener(v -> {
             if (!isEditing) {
                 etFullName.setEnabled(true);
@@ -74,9 +75,9 @@ public class UserProfile extends AppCompatActivity {
                 // 🔹 Update Firebase
                 databaseReference.child(username).child("name").setValue(newName)
                         .addOnSuccessListener(aVoid ->
-                                Toast.makeText(UserProfile.this, "Name updated in Firebase!", Toast.LENGTH_SHORT).show())
+                                Toast.makeText(UserProfile.this, "✅ Name updated in Firebase!", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e ->
-                                Toast.makeText(UserProfile.this, "Firebase update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                Toast.makeText(UserProfile.this, "❌ Firebase update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
                 etFullName.setEnabled(false);
                 btnEditProfile.setText("Edit Profile");
@@ -84,6 +85,14 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        // ✅ View Bookings button (👉 এইটা যোগ করা হয়েছে)
+        btnViewBookings.setOnClickListener(v -> {
+            Intent intent = new Intent(UserProfile.this, ViewBooking.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+        });
+
+        // ✅ Logout button
         btnLogout.setOnClickListener(v -> {
             sessionPrefs.edit().clear().apply();
             SharedPreferences cartPrefs = getSharedPreferences("Cart_" + username, MODE_PRIVATE);
@@ -95,6 +104,7 @@ public class UserProfile extends AppCompatActivity {
             finish();
         });
 
+        // ✅ Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();

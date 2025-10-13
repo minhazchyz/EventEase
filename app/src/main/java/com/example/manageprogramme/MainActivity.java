@@ -2,7 +2,6 @@ package com.example.manageprogramme;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // ✅ Adjust for system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -38,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
             email = intent.getStringExtra("email");
         }
 
-        // CardView references
+        // ✅ CardView references
         CardView weddingCard = findViewById(R.id.card_wedding);
         CardView birthdayCard = findViewById(R.id.birthday);
         CardView bridalShawerCard = findViewById(R.id.card_bridal);
+        CardView pujaCard = findViewById(R.id.card_puja);
 
-        // Card click events → pass user data if needed
+        // ✅ Card click events → pass user data
         weddingCard.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, Weddingpage.class);
             i.putExtra("username", username);
@@ -68,7 +69,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        // Bottom navigation
+        pujaCard.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, PujaPage.class);
+            i.putExtra("username", username);
+            i.putExtra("name", name);
+            i.putExtra("email", email);
+            startActivity(i);
+        });
+
+        // ✅ Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
