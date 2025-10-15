@@ -18,7 +18,6 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,85 +29,113 @@
                 android:id="@+id/Signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="@string/sign_up_title"
                 android:textAlignment="center"
-                android:textColor="@color/purple"
+                android:textColor="@color/purple_700"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/signup_name"
+            <!-- Name -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/user_circle_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:hint="name"
-                android:padding="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:startIconDrawable="@drawable/user_circle_svgrepo_com"
+                app:startIconContentDescription="@string/cd_name_icon">
 
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background"
-                />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_name"
+                    android:inputType="textPersonName"
+                    android:autofillHints="name"
+                    android:importantForAutofill="yes"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/signup_email"
+            <!-- Email -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/email_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:hint="Email"
-                android:inputType="text"
-                android:padding="8dp"
-                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:startIconDrawable="@drawable/email_svgrepo_com"
+                app:startIconContentDescription="@string/cd_email_icon">
 
-                android:textColorHighlight="@color/cardview_dark_background"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:autofillHints="emailAddress"
+                    android:importantForAutofill="yes"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                />
-            <EditText
-                android:id="@+id/signup_username"
+            <!-- Username -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:drawablePadding="8dp"
-                android:hint="username"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:startIconDrawable="@drawable/baseline_person_24"
+                app:startIconContentDescription="@string/cd_username_icon">
 
-                android:padding="8dp"
-                android:textColor="@color/black"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_username"
+                    android:inputType="text|textNoSuggestions"
+                    android:autofillHints="username"
+                    android:importantForAutofill="yes"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                android:textColorHighlight="@color/cardview_dark_background"
-
-                />
-            <EditText
-                android:id="@+id/signup_password"
+            <!-- Password -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/lock_1_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:startIconDrawable="@drawable/lock_1_svgrepo_com"
+                app:startIconContentDescription="@string/cd_password_icon"
+                app:endIconMode="password_toggle">
 
-                android:textColorHighlight="@color/cardview_dark_background"
-
-                />
-
-
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword"
+                    android:autofillHints="password"
+                    android:importantForAutofill="yes"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/Signup_button"
+                android:id="@+id/signup_button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/purple"
-                android:text="Signup"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/purple_700"
+                android:text="@string/action_signup"
+                android:textColor="@color/on_primary"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
         </LinearLayout>
@@ -120,10 +147,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:padding="8dp"
-        android:text="Already an user? Login"
+        android:text="@string/login_redirect"
         android:textAlignment="center"
-        android:textColor="@color/purple"
+        android:textColor="@color/purple_700"
         android:textSize="14sp" />
-
-
 </LinearLayout>

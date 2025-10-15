@@ -11,13 +11,13 @@
     tools:context=".LoginActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/loginCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:background="@drawable/lavender_border"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,68 +26,96 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <!-- Title -->
             <TextView
                 android:id="@+id/loginText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
                 android:textAlignment="center"
-                android:textColor="@color/purple"
+                android:textColor="@color/purple_700"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/login_username"
+            <!-- Username -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:drawablePadding="8dp"
-                android:hint="Username"
-                android:padding="8dp"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background" />
+                app:startIconDrawable="@drawable/baseline_person_24"
+                app:startIconContentDescription="@string/cd_username_icon">
 
-            <EditText
-                android:id="@+id/login_password"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/lavender_border"
-                android:drawableLeft="@drawable/lock_1_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:hint="Password"
-                android:inputType="textPassword"
+                app:startIconDrawable="@drawable/lock_1_svgrepo_com"
+                app:startIconContentDescription="@string/cd_password_icon"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Forgot Password -->
+            <TextView
+                android:id="@+id/forgotPasswordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:text="Forgot Password?"
+                android:textColor="@color/purple_700"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true"
                 android:padding="8dp"
-                android:textColor="@color/black"
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
-                android:textColorHighlight="@color/cardview_dark_background"
-
-                />
-
+            <!-- Login Button -->
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/purple"
+                android:backgroundTint="@color/purple_700"
                 android:text="Login"
+                android:textColor="@color/on_primary"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Redirect to Signup -->
     <TextView
         android:id="@+id/signupRedirectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:padding="8dp"
-        android:text="Not yet registered? SignUp Now"
+        android:text="Not yet registered? Sign Up Now"
         android:textAlignment="center"
-        android:textColor="@color/purple"
+        android:textColor="@color/purple_700"
         android:textSize="14sp" />
-
-
 </LinearLayout>

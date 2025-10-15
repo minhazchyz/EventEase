@@ -19,7 +19,6 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="20dp"
-
             android:src="@drawable/tick_mark" />
 
         <!-- Confirmation Text -->
@@ -89,7 +88,19 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- ✅ Date TextView -->
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"/>
         </LinearLayout>
 
         <!-- Back to Home Button -->

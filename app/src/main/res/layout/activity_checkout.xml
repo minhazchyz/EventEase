@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -91,10 +90,24 @@
                     android:padding="12dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/lavender_border" />
+
+                <!-- Date Picker -->
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select Date"
+                    android:focusable="false"
+                    android:clickable="true"
+
+
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/lavender_border" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Order Summary -->
+        <!-- Order Summary Card (same as before) -->
         <androidx.cardview.widget.CardView
             android:id="@+id/order_summary_card"
             android:layout_width="match_parent"
@@ -138,7 +151,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Payment Method -->
+        <!-- Payment Method Card (same as before) -->
         <androidx.cardview.widget.CardView
             android:id="@+id/payment_method_card"
             android:layout_width="match_parent"

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "718695599984",
-    "project_id": "manage-programme",
-    "storage_bucket": "manage-programme.firebasestorage.app"
+    "project_number": "628158498707",
+    "project_id": "event-ease-391ee",
+    "storage_bucket": "event-ease-391ee.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:718695599984:android:09fe4976df7b57a20c89b5",
+        "mobilesdk_app_id": "1:628158498707:android:e1d8f5e258c9665bd70a66",
         "android_client_info": {
           "package_name": "com.example.manageprogramme"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDouojFom1PyLNwlYXo-18eHw7mS6uYMC8"
+          "current_key": "AIzaSyCQ9hOEDaf0q8nuMMAvytIVZav2zjfXsJs"
         }
       ],
       "services": {

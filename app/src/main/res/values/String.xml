@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ManageProgramme</string>
 
+    <string name="sign_up_title">Sign Up</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="action_signup">Signup</string>
+
+    <string name="login_redirect">Already a user? Login</string>
+
+    <string name="cd_name_icon">Name icon</string>
+    <string name="cd_email_icon">Email icon</string>
+    <string name="cd_username_icon">Username icon</string>
+    <string name="cd_password_icon">Password icon</string>
+
+    <!-- ⬇️ কনসোল থেকে কপি করা RTDB URL এখানে বসাও -->
+    <string name="firebase_db_url">
+        https://event-ease-391ee-default-rtdb.asia-southeast1.firebasedatabase.app
+    </string>
 
     <string name="empty_cart_message">Your cart is empty</string>
-
-
 </resources>

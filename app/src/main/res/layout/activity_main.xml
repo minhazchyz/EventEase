@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/background"
-    android:id="@+id/main"
-
-    >
+    android:id="@+id/main">
 
     <!-- Main Content -->
     <ScrollView
@@ -38,13 +36,14 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Your cards -->
+            <!-- All Cards -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
 
+                <!-- Row 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,12 +51,12 @@
 
                     <!-- Wedding Card -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_wedding"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="10dp"
                         app:cardBackgroundColor="#2D2D2D"
-                        app:cardCornerRadius="15dp"
-                        android:id="@+id/card_wedding">
+                        app:cardCornerRadius="15dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -69,7 +68,6 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-
                                 android:background="@drawable/weddding"/>
 
                             <TextView
@@ -82,16 +80,14 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Puja Card -->
+                    <!-- Bridal Shower Card -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_bridal"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="10dp"
                         app:cardBackgroundColor="#2D2D2D"
-                        app:cardCornerRadius="15dp"
-                        android:id="@+id/card_bridal"
-
-                        >
+                        app:cardCornerRadius="15dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -108,7 +104,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Bridal Shawer"
+                                android:text="Bridal Shower"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
                                 android:textSize="18sp"/>
@@ -124,13 +120,12 @@
 
                     <!-- Birthday Card -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/birthday"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="10dp"
                         app:cardBackgroundColor="#2D2D2D"
-                        app:cardCornerRadius="15dp"
-                        android:id="@+id/birthday"
-                        >
+                        app:cardCornerRadius="15dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -154,14 +149,14 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Photography Card -->
+                    <!-- Puja Card -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_puja"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_margin="10dp"
                         app:cardBackgroundColor="#2D2D2D"
-                        app:cardCornerRadius="15dp"
-                        android:id="@+id/card_puja">
+                        app:cardCornerRadius="15dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -181,7 +176,76 @@
                                 android:text="Puja"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="15sp"/>
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <!-- Row 3 (New Row for Mehendi & Reception) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <!-- Mehendi Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_mehendi"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="#2D2D2D"
+                        app:cardCornerRadius="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/weddding"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Mehendi"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Reception Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_reception"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        app:cardBackgroundColor="#2D2D2D"
+                        app:cardCornerRadius="15dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/weddding"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Reception"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -191,24 +255,14 @@
 
     <!-- Sticky Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
-
-
-
-
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
-        app:menu="@menu/navigation"
-
-
         app:labelVisibilityMode="unlabeled"
-
-        />
-
+        app:menu="@menu/navigation" />
 
 </RelativeLayout>
