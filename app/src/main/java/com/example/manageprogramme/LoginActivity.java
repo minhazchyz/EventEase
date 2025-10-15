@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText loginEmail, loginPassword;
     private Button loginButton;
-    private TextView signupRedirectText;
+    private TextView signupRedirectText, forgotPasswordText; // Forgot Password যোগ হলো
 
     private DatabaseReference usersRef;
     private FirebaseAuth auth;
@@ -73,8 +73,15 @@ public class LoginActivity extends AppCompatActivity {
             hideKeyboard();
             attemptLogin();
         });
+
         signupRedirectText.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
+
+        // ✅ Forgot Password লিঙ্ক
+        forgotPasswordText.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override protected void onDestroy() {
@@ -87,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         signupRedirectText = findViewById(R.id.signupRedirectText);
+        forgotPasswordText = findViewById(R.id.forgotPasswordText); // Forgot Password bind
     }
 
     private void initFirebase() {
@@ -150,7 +158,6 @@ public class LoginActivity extends AppCompatActivity {
             if (isSubmitting && !hasNavigated) {
                 Log.w(TAG, "DB soft-timeout fired, continuing with minimal profile");
                 Map<String, Object> profile = buildMinimalProfile(uid, email, fUser);
-                // ❌ কোনো টোস্ট দেখাবো না—সরাসরি এগোবো
                 saveSessionAndGo(profile);
             }
         };
@@ -237,7 +244,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     if (!fUser.isEmailVerified()) {
-                        // Re-send verification (best-effort)
                         fUser.sendEmailVerification();
                         setLoading(false);
                         toastLong("⚠ Verify your email first. A new link was sent to " + email);
@@ -254,7 +260,6 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(dbTask -> {
                                 if (!dbTask.isSuccessful()) {
                                     Log.w(TAG, "DB read failed: " + err(dbTask.getException()));
-                                    // soft-timeout will continue
                                     return;
                                 }
 
@@ -292,9 +297,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveSessionAndGo(@NonNull Map<String, Object> profile) {
-        // UI/timers বন্ধ করেই ন্যাভিগেট করি—কোনো success toast নেই
         setLoading(false);
-        hasNavigated = true;   // ← আর কোনো watchdog/soft-timeout ট্রিগার করবে না
+        hasNavigated = true;
 
         String name     = String.valueOf(profile.getOrDefault("name", ""));
         String username = String.valueOf(profile.getOrDefault("username", ""));
