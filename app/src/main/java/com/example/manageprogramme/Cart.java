@@ -27,7 +27,7 @@ public class Cart extends AppCompatActivity {
     private int totalPrice = 0;
     private SharedPreferences prefs;
     private StringBuilder allItems = new StringBuilder();
-    private String username; // 🔹 Current user
+    private String username, email; // ✅ Added email too
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,48 +35,55 @@ public class Cart extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
+        // System bar padding fix
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
-        // 🔹 Receive username from Intent
+        // ✅ Receive user data from intent
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        email = intent.getStringExtra("email");
 
+        // Initialize UI
         cartContainer = findViewById(R.id.cart_items_container);
         tvTotalPrice = findViewById(R.id.tv_total_price);
         emptyCartMessage = findViewById(R.id.empty_cart_message);
 
-        // 🔹 User-specific SharedPreferences
+        // User-specific SharedPreferences
         prefs = getSharedPreferences("Cart_" + username, MODE_PRIVATE);
 
-        // 🔹 Load items
+        // Load items
         loadCartItems();
 
-        // 🔹 Bottom Navigation
+        // ✅ Bottom Navigation Setup
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_cart); // highlight Cart tab
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            Intent navIntent = null;
 
             if (id == R.id.nav_home) {
-                Intent homeIntent = new Intent(Cart.this, MainActivity.class);
-                homeIntent.putExtra("username", username);
-                startActivity(homeIntent);
-                return true;
+                navIntent = new Intent(this, MainActivity.class);
             } else if (id == R.id.nav_profile) {
-                Intent profileIntent = new Intent(Cart.this, UserProfile.class);
-                profileIntent.putExtra("username", username);
-                startActivity(profileIntent);
-                return true;
+                navIntent = new Intent(this, UserProfile.class);
             } else if (id == R.id.nav_cart) {
-                return true;
+                return true; // already here
             }
-            return false;
+
+            if (navIntent != null) {
+                navIntent.putExtra("username", username);
+                navIntent.putExtra("email", email);
+                startActivity(navIntent);
+                overridePendingTransition(0, 0); // no animation
+            }
+            return true;
         });
 
-        // 🔹 Checkout Button Click
+        // ✅ Checkout Button
         Button btnCheckout = findViewById(R.id.btn_checkout);
         btnCheckout.setOnClickListener(v -> {
             if (cartContainer.getChildCount() == 0) {
@@ -86,6 +93,7 @@ public class Cart extends AppCompatActivity {
 
             Intent checkoutIntent = new Intent(Cart.this, Checkout.class);
             checkoutIntent.putExtra("username", username);
+            checkoutIntent.putExtra("email", email);
             checkoutIntent.putExtra("items", allItems.toString());
             checkoutIntent.putExtra("total_price", "৳" + totalPrice);
             startActivity(checkoutIntent);

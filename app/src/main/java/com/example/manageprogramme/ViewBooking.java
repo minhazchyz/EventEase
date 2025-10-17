@@ -1,5 +1,7 @@
 package com.example.manageprogramme;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,27 +23,34 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ViewBooking extends AppCompatActivity {
 
-    private LinearLayout bookingsContainer;
+    private LinearLayout bookingContainer;
+    private TextView tvNoBookings;
     private DatabaseReference bookingsRef;
     private String username = "";
+    private String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_booking);
 
-        bookingsContainer = findViewById(R.id.scrollLinearLayout);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bookingContainer = findViewById(R.id.bookingContainer);
+        tvNoBookings = findViewById(R.id.tvNoBookings);
+        ImageView ivBack = findViewById(R.id.ivBack);
 
-        // ✅ Get username from SharedPreferences or Intent
-        username = getSharedPreferences("UserSession", MODE_PRIVATE)
-                .getString("username", "");
+        // Load session data
+        SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+        username = prefs.getString("username", "");
+        email = prefs.getString("email", "");
 
-        if (username == null || username.isEmpty()) {
+        // Intent extras overwrite session if available
+        if (getIntent().getStringExtra("username") != null) {
             username = getIntent().getStringExtra("username");
         }
+        if (getIntent().getStringExtra("email") != null) {
+            email = getIntent().getStringExtra("email");
+        }
 
-        // ✅ Reference to user's bookings
         bookingsRef = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(username)
@@ -50,33 +58,38 @@ public class ViewBooking extends AppCompatActivity {
 
         loadBookings();
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
-            if (id == R.id.nav_home) {
-                finish();
-                return true;
-            } else if (id == R.id.nav_cart) {
-                return true;
-            }
-            return false;
+        // ✅ Back Button click handler
+        ivBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewBooking.this, UserProfile.class);
+            intent.putExtra("username", username);
+            intent.putExtra("email", email);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
         });
     }
 
     private void loadBookings() {
+        tvNoBookings.setVisibility(View.VISIBLE);
+        tvNoBookings.setText("Loading your bookings...");
+        bookingContainer.removeAllViews();
+
         bookingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                bookingsContainer.removeAllViews();
+                bookingContainer.removeAllViews();
 
                 if (!snapshot.exists()) {
-                    Toast.makeText(ViewBooking.this, "No bookings found", Toast.LENGTH_SHORT).show();
+                    tvNoBookings.setText("No bookings found");
+                    tvNoBookings.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
-                    String bookingId = bookingSnapshot.getKey(); // ✅ For cancel action
+                tvNoBookings.setVisibility(View.GONE);
 
-                    // Create MaterialCardView
+                for (DataSnapshot bookingSnapshot : snapshot.getChildren()) {
+                    String bookingId = bookingSnapshot.getKey();
+
                     MaterialCardView card = new MaterialCardView(ViewBooking.this);
                     LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -84,78 +97,81 @@ public class ViewBooking extends AppCompatActivity {
                     );
                     cardParams.setMargins(16, 8, 16, 16);
                     card.setLayoutParams(cardParams);
-                    card.setRadius(12f);
-                    card.setCardElevation(6f);
+                    card.setRadius(16f);
+                    card.setCardElevation(8f);
 
-                    // Inner layout
                     LinearLayout innerLayout = new LinearLayout(ViewBooking.this);
                     innerLayout.setOrientation(LinearLayout.VERTICAL);
-                    innerLayout.setPadding(12, 12, 12, 12);
+                    innerLayout.setPadding(24, 24, 24, 24);
                     card.addView(innerLayout);
 
-                    // Booking image
                     ImageView bookingImage = new ImageView(ViewBooking.this);
                     bookingImage.setLayoutParams(new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, 400
+                            ViewGroup.LayoutParams.MATCH_PARENT, 350
                     ));
                     bookingImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     bookingImage.setImageResource(R.drawable.weddding);
                     innerLayout.addView(bookingImage);
 
-                    // Booking details
                     String name = bookingSnapshot.child("name").getValue(String.class);
                     String phone = bookingSnapshot.child("phone").getValue(String.class);
                     String address = bookingSnapshot.child("address").getValue(String.class);
-                    String payment = bookingSnapshot.child("payment").getValue(String.class);
+                    String payment = bookingSnapshot.child("paymentMethod").getValue(String.class);
                     String items = bookingSnapshot.child("items").getValue(String.class);
                     String totalPrice = bookingSnapshot.child("totalPrice").getValue(String.class);
+                    String date = bookingSnapshot.child("date").getValue(String.class);
 
-                    addText(innerLayout, "Name: " + name);
-                    addText(innerLayout, "Phone: " + phone);
-                    addText(innerLayout, "Address: " + address);
-                    addText(innerLayout, "Payment: " + payment);
-                    addText(innerLayout, "Items: " + items);
-                    addText(innerLayout, "Total: " + totalPrice);
+                    addText(innerLayout, "Name: " + (name != null ? name : "N/A"));
+                    addText(innerLayout, "Phone: " + (phone != null ? phone : "N/A"));
+                    addText(innerLayout, "Address: " + (address != null ? address : "N/A"));
+                    addText(innerLayout, "Payment: " + (payment != null ? payment : "N/A"));
+                    addText(innerLayout, "Items: " + (items != null ? items : "N/A"));
+                    addText(innerLayout, "Total: " + (totalPrice != null ? totalPrice : "N/A"));
+                    addText(innerLayout, "Date: " + (date != null ? date : "N/A"));
 
-                    // ✅ Add Cancel Button
                     Button cancelBtn = new Button(ViewBooking.this);
                     cancelBtn.setText("Cancel Booking");
                     cancelBtn.setBackgroundColor(Color.RED);
                     cancelBtn.setTextColor(Color.WHITE);
-                    cancelBtn.setPadding(16, 8, 16, 8);
+                    cancelBtn.setPadding(10, 10, 10, 10);
                     cancelBtn.setOnClickListener(v -> cancelBooking(bookingId, card));
                     innerLayout.addView(cancelBtn);
 
-                    // Add to container
-                    bookingsContainer.addView(card);
+                    bookingContainer.addView(card);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(ViewBooking.this, "Failed to load bookings: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                tvNoBookings.setText("Failed to load bookings");
+                Toast.makeText(ViewBooking.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void addText(LinearLayout layout, String text) {
-        TextView tv = new TextView(ViewBooking.this);
+        TextView tv = new TextView(this);
         tv.setText(text);
         tv.setTextColor(Color.BLACK);
         tv.setTextSize(14f);
         layout.addView(tv);
     }
 
-    // ✅ Function to cancel (delete) booking
     private void cancelBooking(String bookingId, View cardView) {
         if (bookingId == null) return;
 
         bookingsRef.child(bookingId).removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 ((ViewGroup) cardView.getParent()).removeView(cardView);
-                Toast.makeText(ViewBooking.this, "Booking cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Booking cancelled", Toast.LENGTH_SHORT).show();
+
+                if (bookingContainer.getChildCount() == 0) {
+                    tvNoBookings.setVisibility(View.VISIBLE);
+                    tvNoBookings.setText("No bookings found");
+                }
+
             } else {
-                Toast.makeText(ViewBooking.this, "Failed to cancel booking", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to cancel booking", Toast.LENGTH_SHORT).show();
             }
         });
     }

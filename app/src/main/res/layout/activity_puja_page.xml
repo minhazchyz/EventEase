@@ -59,7 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/goneshpuja" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/durgapuja" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -164,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/lexmipuja" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -212,7 +212,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/sarawasatipuja" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -269,7 +269,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/speclpuja" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -317,13 +317,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/diwalipuja" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
-                            android:text="Festival Puja Package"
+                            android:text="Diwali Package"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -357,8 +357,8 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
         app:menu="@menu/navigation"
         app:labelVisibilityMode="unlabeled"
         />

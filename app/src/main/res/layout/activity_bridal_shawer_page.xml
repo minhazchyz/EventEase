@@ -60,7 +60,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/bridal1" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/luxurybridalshaweer" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -150,7 +150,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/gardenbridal" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -195,7 +195,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/teambridalshaer" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -240,7 +240,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/bridal2" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -285,7 +285,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/theambridal" />
 
                         <TextView
                             android:layout_width="match_parent"

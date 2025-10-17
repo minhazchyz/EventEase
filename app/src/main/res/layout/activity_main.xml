@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/background"
-    android:id="@+id/main">
+    tools:context=".MainActivity">
 
-    <!-- Main Content -->
+    <!-- Scrollable Main Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,24 +19,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Title -->
-            <LinearLayout
-                android:id="@+id/ll1"
-                android:layout_width="wrap_content"
+            <!-- Title Section -->
+            <RelativeLayout
+                android:id="@+id/title_section"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_margin="50dp">
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="40dp">
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Event Ease"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true" />
 
-            <!-- All Cards -->
+                <!-- Info Button -->
+                <ImageButton
+                    android:id="@+id/btn_info"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/info_svgrepo_com"
+                    android:contentDescription="Developer Info" />
+            </RelativeLayout>
+
+            <!-- All Cards Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +82,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/weddingp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -76,7 +90,7 @@
                                 android:text="Wedding"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -99,7 +113,7 @@
                                 android:layout_width="110dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/bridalshpage" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -107,7 +121,7 @@
                                 android:text="Bridal Shower"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -137,7 +151,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/birthdaypage" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -145,7 +159,7 @@
                                 android:text="Birthday"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -168,7 +182,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/pujapage" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -176,12 +190,12 @@
                                 android:text="Puja"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
-                <!-- Row 3 (New Row for Mehendi & Reception) -->
+                <!-- Row 3 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,7 +220,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/mendi" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -214,7 +228,7 @@
                                 android:text="Mehendi"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -237,7 +251,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/weddding"/>
+                                android:src="@drawable/receptionpage" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -245,7 +259,81 @@
                                 android:text="Reception"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <!-- Row 4 (Shopping Card) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_shopping"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:layout_margin="16dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardBackgroundColor="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            android:gravity="center_vertical">
+
+                            <!-- Left Side: Image -->
+                            <ImageView
+                                android:id="@+id/shopping_image"
+                                android:layout_width="120dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="12dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/shoppingpage"
+                                android:background="@drawable/rounded_image_bd"
+                                android:contentDescription="Shopping Image" />
+
+                            <!-- Right Side: Text Content -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Shopping"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Explore occasion outfits and gifts"
+                                    android:textSize="14sp"
+                                    android:textColor="#757575"
+                                    android:layout_marginTop="4dp" />
+
+                                <Button
+                                    android:id="@+id/btn_shop_now"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Shop Now"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:backgroundTint="@color/purple"
+                                    android:layout_marginTop="8dp"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="6dp"
+                                    android:layout_gravity="start" />
+                            </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -253,16 +341,17 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Sticky Bottom Navigation -->
+    <!-- 🔹 Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/navigation" />
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+
+        app:menu="@menu/navigation"
+        app:labelVisibilityMode="unlabeled" />
 
 </RelativeLayout>

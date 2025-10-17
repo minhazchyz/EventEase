@@ -59,7 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/basicreception" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/familyrecip" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -164,7 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/familyrecip" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -212,7 +212,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/eligentrecip" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -269,7 +269,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/royalrecip" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -317,7 +317,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/weddding" />
+                            android:src="@drawable/grandrecip" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -353,11 +353,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
-        app:menu="@drawable/bottom_nav_menu" />
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:menu="@drawable/bottom_nav_menu"
+        app:labelVisibilityMode="unlabeled"/>
 
 </RelativeLayout>

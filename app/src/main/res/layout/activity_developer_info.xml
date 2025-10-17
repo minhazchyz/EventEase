@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back_svgrepo_com"
+
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- ScrollView -->
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ivBack"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- About Us Title -->
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About Us"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Supervisor -->
+            <ImageView
+                android:id="@+id/img_supervisor"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/sir"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/lavender_border"/>
+
+            <TextView
+                android:id="@+id/tv_supervisor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Md.Amranul Haque"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_supervisor_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lecturer"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_supervisor_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Department of CSE, Leading University"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Developer 1 -->
+            <ImageView
+                android:id="@+id/img_dev1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/promy"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/lavender_border"/>
+
+            <TextView
+                android:id="@+id/tv_dev1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasnia Haque Promy"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_dev1_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frontend and Backend"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_dev1_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leading University (CSE 60 Batch)"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Developer 2 -->
+            <ImageView
+                android:id="@+id/img_dev2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/toma"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/lavender_border"/>
+
+            <TextView
+                android:id="@+id/tv_dev2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kulsuma Tuj Johura Toma"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_dev2_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frontend"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_dev2_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leading University (CSE 60 Batch)"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Developer 3 -->
+            <ImageView
+                android:id="@+id/img_dev3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/minhaz"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/lavender_border"/>
+
+            <TextView
+                android:id="@+id/tv_dev3_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S.M.Minhaj Chowdhury"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_dev3_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frontend  and Backend"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_dev3_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leading University (CSE 60 Batch)"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

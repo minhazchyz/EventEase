@@ -4,125 +4,83 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfile extends AppCompatActivity {
 
-    private Button btnEditProfile, btnViewBookings, btnLogout;
-    private TextInputEditText etFullName, etEmail, etPhone, etAddress;
-    private String username, name, email;
+    private Button btnViewBookings, btnLogout;
+    private TextInputEditText etEmail;
 
-    private boolean isEditing = false;
-
-    private DatabaseReference databaseReference;
+    private String username, email;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        etFullName = findViewById(R.id.etFullName);
+        // Initialize views
         etEmail = findViewById(R.id.etEmail);
-        etPhone = findViewById(R.id.etPhone);
-        etAddress = findViewById(R.id.etAddress);
-
-        btnEditProfile = findViewById(R.id.btnEditProfile);
         btnViewBookings = findViewById(R.id.btnViewBookings);
         btnLogout = findViewById(R.id.btnLogout);
+        auth = FirebaseAuth.getInstance();
 
-        // 🔹 Firebase reference
-        databaseReference = FirebaseDatabase.getInstance().getReference("users");
-
-        // 🔹 Load user info from session
+        // Load session data
         SharedPreferences sessionPrefs = getSharedPreferences("UserSession", MODE_PRIVATE);
         username = sessionPrefs.getString("username", "");
-        name = sessionPrefs.getString("name", "");
         email = sessionPrefs.getString("email", "");
 
-        etFullName.setText(name);
         etEmail.setText(email);
-
-        // Disable fields except name edit
-        etFullName.setEnabled(false);
         etEmail.setEnabled(false);
-        etPhone.setEnabled(false);
-        etAddress.setEnabled(false);
 
-        // ✅ Edit profile button
-        btnEditProfile.setOnClickListener(v -> {
-            if (!isEditing) {
-                etFullName.setEnabled(true);
-                btnEditProfile.setText("Save");
-                isEditing = true;
-            } else {
-                String newName = etFullName.getText().toString().trim();
-                if (newName.isEmpty()) {
-                    etFullName.setError("Name can't be empty");
-                    return;
-                }
-
-                // 🔹 Update SharedPreferences
-                sessionPrefs.edit().putString("name", newName).apply();
-                name = newName;
-
-                // 🔹 Update Firebase
-                databaseReference.child(username).child("name").setValue(newName)
-                        .addOnSuccessListener(aVoid ->
-                                Toast.makeText(UserProfile.this, "✅ Name updated in Firebase!", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e ->
-                                Toast.makeText(UserProfile.this, "❌ Firebase update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
-                etFullName.setEnabled(false);
-                btnEditProfile.setText("Edit Profile");
-                isEditing = false;
-            }
-        });
-
-        // ✅ View Bookings button (👉 এইটা যোগ করা হয়েছে)
+        // View Bookings button
         btnViewBookings.setOnClickListener(v -> {
-            Intent intent = new Intent(UserProfile.this, ViewBooking.class);
+            Intent intent = new Intent(this, ViewBooking.class);
             intent.putExtra("username", username);
             startActivity(intent);
         });
 
-        // ✅ Logout button
+        // Logout button
         btnLogout.setOnClickListener(v -> {
+            auth.signOut();
             sessionPrefs.edit().clear().apply();
+
+            // Clear cart data
             SharedPreferences cartPrefs = getSharedPreferences("Cart_" + username, MODE_PRIVATE);
             cartPrefs.edit().clear().apply();
 
-            Intent logoutIntent = new Intent(UserProfile.this, LoginActivity.class);
+            Intent logoutIntent = new Intent(this, LoginActivity.class);
             logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(logoutIntent);
             finish();
         });
 
-        // ✅ Bottom navigation
+        // ---- Bottom Navigation ----
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile); // ✅ highlight profile icon
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            Intent navIntent;
+            Intent navIntent = null;
 
             if (id == R.id.nav_home) {
-                navIntent = new Intent(UserProfile.this, MainActivity.class);
+                navIntent = new Intent(this, MainActivity.class);
             } else if (id == R.id.nav_cart) {
-                navIntent = new Intent(UserProfile.this, Cart.class);
-                navIntent.putExtra("username", username);
-            } else {
-                return false;
+                navIntent = new Intent(this, Cart.class);
+            } else if (id == R.id.nav_profile) {
+                return true; // Already on profile
             }
 
-            navIntent.putExtra("username", username);
-            navIntent.putExtra("name", name);
-            navIntent.putExtra("email", email);
-            startActivity(navIntent);
+            if (navIntent != null) {
+                navIntent.putExtra("username", username);
+                navIntent.putExtra("email", email);
+                startActivity(navIntent);
+                overridePendingTransition(0, 0); // No animation between tabs
+            }
             return true;
         });
     }

@@ -76,8 +76,8 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
         app:menu="@menu/navigation"
         app:labelVisibilityMode="unlabeled"/>
 </RelativeLayout>
