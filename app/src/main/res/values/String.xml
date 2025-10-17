@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ManageProgramme</string>
+    <string name="app_name">Event Ease</string>
 
     <string name="sign_up_title">Sign Up</string>
     <string name="hint_name">Name</string>
