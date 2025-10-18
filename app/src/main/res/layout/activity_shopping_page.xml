@@ -77,7 +77,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Set of 3 designer sarees"
+                            android:text="Set of 3 designer sarees($200)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
@@ -138,7 +138,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Set of 2 sherwanis with accessories"
+                            android:text="Set of 2 sherwanis with accessories($300)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
@@ -199,7 +199,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chocolate fudge cake, 1kg"
+                            android:text="Chocolate fudge cake, 1kg($50)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
@@ -260,7 +260,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fresh roses bouquet"
+                            android:text="Fresh roses bouquet($30)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
@@ -321,7 +321,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Assorted gifts for occasions"
+                            android:text="Assorted gifts for occasions($80)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
@@ -382,7 +382,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="LED lights to decorate venue"
+                            android:text="LED lights to decorate venue($120)"
                             android:textSize="14sp"
                             android:textColor="#757575"
                             android:layout_marginTop="4dp" />
