@@ -25,7 +25,7 @@ public class BirthdayPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday_page);
 
-        // ✅ Receive user data from MainActivity
+        //  Receive user data from MainActivity
         Intent intent = getIntent();
         if (intent != null) {
             username = intent.getStringExtra("username");

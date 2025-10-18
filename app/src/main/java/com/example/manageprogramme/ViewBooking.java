@@ -58,7 +58,7 @@ public class ViewBooking extends AppCompatActivity {
 
         loadBookings();
 
-        // ✅ Back Button click handler
+        //  Back Button click handler
         ivBack.setOnClickListener(v -> {
             Intent intent = new Intent(ViewBooking.this, UserProfile.class);
             intent.putExtra("username", username);
@@ -131,7 +131,8 @@ public class ViewBooking extends AppCompatActivity {
 
                     Button cancelBtn = new Button(ViewBooking.this);
                     cancelBtn.setText("Cancel Booking");
-                    cancelBtn.setBackgroundColor(Color.RED);
+                    cancelBtn.setBackgroundColor(Color.parseColor("#9C27B0")); // Material Deep Purple 500
+
                     cancelBtn.setTextColor(Color.WHITE);
                     cancelBtn.setPadding(10, 10, 10, 10);
                     cancelBtn.setOnClickListener(v -> cancelBooking(bookingId, card));

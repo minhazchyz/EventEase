@@ -58,7 +58,7 @@ public class Cart extends AppCompatActivity {
         // Load items
         loadCartItems();
 
-        // ✅ Bottom Navigation Setup
+        // Bottom Navigation Setup
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_cart); // highlight Cart tab
 
@@ -95,7 +95,7 @@ public class Cart extends AppCompatActivity {
             checkoutIntent.putExtra("username", username);
             checkoutIntent.putExtra("email", email);
             checkoutIntent.putExtra("items", allItems.toString());
-            checkoutIntent.putExtra("total_price", "৳" + totalPrice);
+            checkoutIntent.putExtra("total_price", "$" + totalPrice);
             startActivity(checkoutIntent);
         });
     }
@@ -153,7 +153,7 @@ public class Cart extends AppCompatActivity {
         nameView.setPadding(0, 0, 0, 4);
 
         TextView priceView = new TextView(this);
-        priceView.setText("Price: ৳" + price);
+        priceView.setText("Price: $" + price);
         priceView.setTextSize(14);
         priceView.setTextColor(getResources().getColor(R.color.purple));
 
@@ -201,6 +201,6 @@ public class Cart extends AppCompatActivity {
     }
 
     private void updateTotalPrice() {
-        tvTotalPrice.setText("Total: ৳" + totalPrice);
+        tvTotalPrice.setText("Total: $" + totalPrice);
     }
 }
