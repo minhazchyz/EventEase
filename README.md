@@ -41,3 +41,7 @@ Designed and developed the application as part of an academic project, focusing 
 
 GitHub: https://github.com/minhazchyz
 
+**Tasnia Haque Promy**
+
+GitHub: https://github.com/Promy251
+
